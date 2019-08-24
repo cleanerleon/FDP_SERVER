@@ -1,0 +1,1252 @@
+arbiter_cv_json_str = '''
+{
+
+    "local": {
+        "role": "arbiter",
+        "party_id": 10000
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+
+    "DataIOParam": {
+        "with_label": false,
+        "output_format": "dense"
+    },
+    "WorkFlowParam": {
+        "method": "cross_validation",
+        "train_input_table": "_train_table_name",
+        "train_input_namespace": "hetero_lr_data",
+        "model_table": "hetero_lr_arbiter_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "_predict_table_name",
+        "predict_input_namespace": "hetero_lr_data",
+        "predict_output_table": "some_predict_output_table_name_hetero_logistic_regression_example_standalone_20190811123138",
+        "predict_output_namespace": "some_predict_output_path",
+        "evaluation_output_table": "some_evaluate_output_table_name_hetero_logistic_regression_example_standalone_20190811123138",
+        "evaluation_output_namespace": "some_evaluate_output_path",
+        "data_input_table": "",
+        "data_input_namespace": "hetero_lr_data",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": 3200,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+'''
+
+host_cv_json_str = '''
+{
+
+    "local": {
+        "role": "host",
+        "party_id": 9999
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+
+    "DataIOParam": {
+        "with_label": false,
+        "output_format": "dense"
+    },
+    "WorkFlowParam": {
+        "method": "cross_validation",
+        "train_input_table": "_train_table_name",
+        "train_input_namespace": "hetero_lr_data",
+        "model_table": "hetero_lr_host_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "_predict_table_name",
+        "predict_input_namespace": "hetero_lr_data",
+        "predict_output_table": "hetero_lr_host_predict_output_hetero_logistic_regression_example_standalone_20190811123138",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "some_evaluate_output_table_name_hetero_logistic_regression_example_standalone_20190811123138",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "host_table",
+        "data_input_namespace": "hetero_lr_data",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+'''
+
+guest_cv_json_str =  '''
+{
+
+    "local": {
+        "role": "guest",
+        "party_id": 10000
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+    "DataIOParam": {
+        "with_label": true,
+        "label_idx": 0,
+        "label_type": "int",
+        "output_format": "dense",
+        "missing_fill": true
+    },
+    "WorkFlowParam": {
+        "method": "cross_validation",
+        "train_input_table": "_train_table_name",
+        "train_input_namespace": "hetero_lr_data",
+        "model_table": "hetero_lr_guest_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "_predict_table_name",
+        "predict_input_namespace": "hetero_lr_data",
+        "predict_output_table": "hetero_lr_guest_predict_output_hetero_logistic_regression_example_standalone_20190811123138",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "hetero_lr_evaluation_output_hetero_logistic_regression_example_standalone_20190811123138",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "guest_table",
+        "data_input_namespace": "hetero_lr_data",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+'''
+
+'''
+
+guest
+{
+  "local": {
+    "role": "guest",
+    "party_id": 10000
+  },
+  "role": {
+    "host": [
+      9999
+    ],
+    "guest": [
+      10000
+    ]
+  },
+  "DataIOParam": {
+    "with_label": false,
+    "partition": 10
+  },
+  "WorkFlowParam": {
+    "method": "intersect",
+    "data_input_table": "breast_guest_intersect_intersect_example_standalone_20190812231829",
+    "data_input_namespace": "example_data_namespace",
+    "intersect_data_output_table": "guest_intersect_output_table_name_intersect_example_standalone_20190812231829",
+    "intersect_data_output_namespace": "guest_intersect_output_namespace_intersect_example_standalone_20190812231829",
+    "work_mode": 0
+  },
+  "IntersectParam": {
+    "intersect_method": "rsa",
+    "random_bit": 128,
+    "is_send_intersect_ids": true,
+    "is_get_intersect_ids": true,
+    "join_role": "host",
+    "with_encode": true,
+    "only_output_key": true
+  },
+  "EncodeParam": {
+    "encode_method": "sha256",
+    "salt": "12345",
+    "base64": false
+  }
+}
+
+host
+{
+  "local": {
+    "role": "host",
+    "party_id": 9999
+  },
+  "role": {
+    "host": [
+      9999
+    ],
+    "guest": [
+      10000
+    ]
+  },
+  "DataIOParam": {
+    "with_label": false,
+    "partition": 10
+  },
+  "WorkFlowParam": {
+    "method": "intersect",
+    "data_input_table": "breast_host_intersect_intersect_example_standalone_20190812231829",
+    "data_input_namespace": "example_data_namespace",
+    "intersect_data_output_table": "host_intersect_output_table_name_intersect_example_standalone_20190812231829",
+    "intersect_data_output_namespace": "host_intersect_output_namespace_intersect_example_standalone_20190812231829",
+    "work_mode": 0
+  },
+  "IntersectParam": {
+    "intersect_method": "rsa",
+    "random_bit": 128,
+    "is_send_intersect_ids": true,
+    "is_get_intersect_ids": true,
+    "join_role": "host",
+    "with_encode": true,
+    "only_output_key": true
+  },
+  "EncodeParam": {
+    "encode_method": "sha256",
+    "salt": "12345",
+    "base64": false
+  }
+}
+
+'''
+
+guest
+/root/FATE/examples/hetero_logistic_regression/conf/guest_runtime_conf.json_hetero_logistic_regression_example_standalone_20190813140236
+{
+
+    "local": {
+        "role": "guest",
+        "party_id": 10000
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+    "DataIOParam": {
+        "with_label": true,
+        "label_idx": 0,
+        "label_type": "int",
+        "output_format": "dense",
+        "missing_fill": true
+    },
+    "WorkFlowParam": {
+        "method": "train",
+        "train_input_table": "breast_guest_train_hetero_logistic_regression_example_standalone_20190813140236",
+        "train_input_namespace": "example_data_namespace",
+        "model_table": "hetero_lr_guest_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "breast_guest_predict_hetero_logistic_regression_example_standalone_20190813140236",
+        "predict_input_namespace": "example_data_namespace",
+        "predict_output_table": "hetero_lr_guest_predict_output_hetero_logistic_regression_example_standalone_20190813140236",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "hetero_lr_evaluation_output_hetero_logistic_regression_example_standalone_20190813140236",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "_cross_validation_table_name",
+        "data_input_namespace": "example_data_namespace",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+
+arbiter
+/root/FATE/examples/hetero_logistic_regression/conf/arbiter_runtime_conf.json_hetero_logistic_regression_example_standalone_20190813140236
+{
+
+    "local": {
+        "role": "arbiter",
+        "party_id": 10000
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+
+    "DataIOParam": {
+        "with_label": false,
+        "output_format": "dense"
+    },
+    "WorkFlowParam": {
+        "method": "train",
+        "train_input_table": "",
+        "train_input_namespace": "example_data_namespace",
+        "model_table": "hetero_lr_arbiter_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "",
+        "predict_input_namespace": "example_data_namespace",
+        "predict_output_table": "some_predict_output_table_name_hetero_logistic_regression_example_standalone_20190813140236",
+        "predict_output_namespace": "some_predict_output_path",
+        "evaluation_output_table": "some_evaluate_output_table_name_hetero_logistic_regression_example_standalone_20190813140236",
+        "evaluation_output_namespace": "some_evaluate_output_path",
+        "data_input_table": "_cross_validation_table_name",
+        "data_input_namespace": "example_data_namespace",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": 3200,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+
+host
+/root/FATE/examples/hetero_logistic_regression/conf/host_runtime_conf.json_hetero_logistic_regression_example_standalone_20190813140236
+{
+
+    "local": {
+        "role": "host",
+        "party_id": 9999
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+
+    "DataIOParam": {
+        "with_label": false,
+        "output_format": "dense"
+    },
+    "WorkFlowParam": {
+        "method": "train",
+        "train_input_table": "breast_host_train_hetero_logistic_regression_example_standalone_20190813140236",
+        "train_input_namespace": "example_data_namespace",
+        "model_table": "hetero_lr_host_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "breast_host_predict_hetero_logistic_regression_example_standalone_20190813140236",
+        "predict_input_namespace": "example_data_namespace",
+        "predict_output_table": "hetero_lr_host_predict_output_hetero_logistic_regression_example_standalone_20190813140236",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "some_evaluate_output_table_name_hetero_logistic_regression_example_standalone_20190813140236",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "_cross_validation_table_name",
+        "data_input_namespace": "example_data_namespace",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+
+{
+
+    "local": {
+        "role": "guest",
+        "party_id": 10000
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+    "DataIOParam": {
+        "with_label": true,
+        "label_idx": 0,
+        "label_type": "int",
+        "output_format": "dense",
+        "missing_fill": true
+    },
+    "WorkFlowParam": {
+        "method": "predict",
+        "train_input_table": "_train_table_name",
+        "train_input_namespace": "example_data_namespace",
+        "model_table": "hetero_lr_guest_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "breast_guest_predict_hetero_logistic_regression_example_standalone_20190814185244",
+        "predict_input_namespace": "example_data_namespace",
+        "predict_output_table": "hetero_lr_guest_predict_output_hetero_logistic_regression_example_standalone_20190814185244",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "hetero_lr_evaluation_output_hetero_logistic_regression_example_standalone_20190814185244",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "_cross_validation_table_name",
+        "data_input_namespace": "example_data_namespace",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
+
+{
+
+    "local": {
+        "role": "host",
+        "party_id": 9999
+    },
+
+    "role": {
+        "host": [
+            9999
+        ],
+        "arbiter": [
+            10000
+        ],
+        "guest": [
+            10000
+        ]
+    },
+
+    "DataIOParam": {
+        "with_label": false,
+        "output_format": "dense"
+    },
+    "WorkFlowParam": {
+        "method": "predict",
+        "train_input_table": "_train_table_name",
+        "train_input_namespace": "example_data_namespace",
+        "model_table": "hetero_lr_host_model",
+        "model_namespace": "hetero_lr",
+        "predict_input_table": "breast_host_predict_hetero_logistic_regression_example_standalone_20190814185415",
+        "predict_input_namespace": "example_data_namespace",
+        "predict_output_table": "hetero_lr_host_predict_output_hetero_logistic_regression_example_standalone_20190814185415",
+        "predict_output_namespace": "hetero_lr",
+        "evaluation_output_table": "some_evaluate_output_table_name_hetero_logistic_regression_example_standalone_20190814185415",
+        "evaluation_output_namespace": "hetero_lr",
+        "data_input_table": "_cross_validation_table_name",
+        "data_input_namespace": "example_data_namespace",
+        "work_mode": 0,
+        "n_split": 5,
+        "need_intersect": true,
+        "need_feature_selection": false,
+        "need_scale": false,
+        "need_one_hot": false,
+        "one_vs_rest": false
+        },
+
+    "OneHotEncoderParam": {
+        "cols": ["fid0"]
+    },
+    "EncryptParam": {
+        "method": "Paillier",
+        "key_length": 1024
+    },
+    "InitParam": {
+        "init_method": "random_uniform",
+        "fit_intercept": true
+    },
+    "EvaluateParam":{
+        "metrics": ["auc", "precision"],
+        "classi_type": "binary",
+        "pos_label": 1,
+        "thresholds": [0.5]
+    },
+    "LogisticParam": {
+        "penalty": "L2",
+        "optimizer": "rmsprop",
+        "eps": 1e-4,
+        "alpha": 0.01,
+        "max_iter": 10,
+        "converge_func": "diff",
+        "batch_size": -1,
+        "learning_rate": 0.15
+    },
+    "IntersectParam": {
+        "intersect_method": "raw",
+        "is_send_intersect_ids": true,
+        "join_role": "guest",
+        "with_encode": true
+    },
+    "EncodeParam": {
+        "encode_method": "sha256",
+        "salt": "12345",
+        "base64": false
+    },
+    "PredictParam":{
+        "with_proba": true,
+        "threshold": 0.5
+    },
+    "ScaleParam":{
+        "method": "min_max_scale",
+        "mode": "normal",
+        "area": "all",
+        "feat_upper": null,
+        "feat_lower": null,
+        "out_upper": null,
+        "out_lower": null
+    },
+
+    "FeatureBinningParam": {
+        "method": "quantile",
+        "compress_thres": 10000,
+        "head_size": 10000,
+        "error": 0.001,
+        "adjustment_factor": 0.5,
+        "bin_num": 10,
+        "cols": -1,
+        "local_only": false,
+        "result_table": "TO SET",
+        "result_namespace": "TO SET",
+        "display_result": ["iv"]
+    },
+    "FeatureSelectionParam": {
+        "method": "fit",
+        "filter_method": ["unique_value", "iv_value_thres",
+                "coefficient_of_variation_value_thres", "outlier_cols"],
+        "select_cols": -1,
+        "local_only": false,
+        "result_table": "feature_selection_guest_model_table",
+        "result_namespace": "feature_select_namespace"
+    },
+    "UniqueValueParam": {
+        "eps": 1e-5
+    },
+    "IVSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 1.0
+    },
+    "CoeffOfVarSelectionParam": {
+        "value_threshold": 0.1,
+        "percentile_threshold": 0.8
+    },
+    "OutlierColsSelectionParam": {
+        "percentile": 0.9,
+        "upper_threshold": 1000
+    },
+    "EncryptedModeCalculatorParam":{
+        "mode": "strict",
+        "re_encrypted_rate": 1
+    },
+    "OneVsRestParam":{
+        "has_arbiter":true
+    }
+}
