@@ -29,7 +29,7 @@
 
             /**  导入  **/
             $("#importBtn").fancybox({
-                'href'  : '/xngzf/archives/importFangyuan.action',
+                'href'  : '.action',
                 'width' : 633,
                 'height' : 260,
                 'type' : 'iframe',
@@ -62,22 +62,22 @@
 
         /**  导入  **/
         function add(){
-            $("#submitForm").attr("action", "/xngzf/archives/luruFangyuan.action").submit();
+            $("#submitForm").attr("action", ".action").submit();
         }
 
         /**  Excel导出  **/
         function exportExcel(){
             if( confirm('您确定要导出吗？') ){
-                var fyXqCode = $("#fyXq").val();
-                var fyXqName = $('#fyXq option:selected').text();
-    //	 		alert(fyXqCode);
-                if(fyXqCode=="" || fyXqCode==null){
-                    $("#fyXqName").val("");
+                var id = $("#id").val();
+                var name = $('#id option:selected').text();
+    //	 		alert(id);
+                if(id=="" || id==null){
+                    $("#name").val("");
                 }else{
-    //	 			alert(fyXqCode);
-                    $("#fyXqName").val(fyXqName);
+    //	 			alert(id);
+                    $("#name").val(name);
                 }
-                $("#submitForm").attr("action", "/xngzf/archives/exportExcelFangyuan.action").submit();
+                $("#submitForm").attr("action", ".action").submit();
             }
         }
 
@@ -86,7 +86,7 @@
             // 非空判断
             if(id == '') return;
             if(confirm("您确定要删除吗？")){
-                $("#submitForm").attr("action", "/xngzf/archives/delFangyuan.action?fyID=" + id).submit();
+                $("#submitForm").attr("action", ".action?id=" + id).submit();
             }
         }
 
@@ -118,7 +118,7 @@
                 $("#allIDCheck").val(allIDCheck);
                 if(confirm("您确定要批量删除这些记录吗？")){
                     // 提交form
-                    $("#submitForm").attr("action", "/xngzf/archives/batchDelFangyuan.action").submit();
+                    $("#submitForm").attr("action", ".action").submit();
                 }
             }
         }

@@ -1,25 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>登录</title>
-<link href="../static/style/authority/login_css.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../static/scripts/jquery/jquery-1.7.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#login_sub").click(function(){
-			$("#submitForm").attr("action", "/").submit();
-		});
-	});
-	
-	/*回车事件*/
-	function EnterPress(e){ //传入 event 
-		var e = e || window.event; 
-		if(e.keyCode == 13){ 
-			$("#submitForm").attr("action", "/").submit();
-		} 
-	} 
-</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登录</title>
+    <link href="../static/style/authority/login_css.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../static/scripts/jquery/jquery-1.7.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#login_sub").click(function(){
+                $("#submitForm").attr("action", "/").submit();
+            });
+        });
+
+        /*回车事件*/
+        function EnterPress(e){ //传入 event
+            var e = e || window.event;
+            if(e.keyCode == 13){
+                $("#submitForm").attr("action", "/").submit();
+            }
+        }
+    </script>
 </head>
 <body>
 	<div id="login_center">

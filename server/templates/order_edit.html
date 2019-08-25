@@ -44,12 +44,10 @@
 		var id = $("#id").val();
 		var dataname = $("#dataname").val();
 		if(id!="" && dataname!=""){
-			// 给房屋坐落地址赋值
-			$("#fyZldz").val($('#Name option:selected').text() + fyCh + "-" + fyFh);
-			// 异步判断该房室是否存在，如果已存在，给用户提示
+			// 异步判断该订单是否存在，如果已存在，给用户提示
 			$.ajax({
 				type:"POST",
-				url:"checkFyFhIsExists.action",
+				url:".action",
 				data:{"OrderManaging.id":id,"OrderManaging.dataname":dataname},
 				dataType : "text",
 				success:function(data){
@@ -57,8 +55,8 @@
 					// 如果返回数据不为空，更改“订单信息”
 					if(data=="1"){
 						 art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'该订单在系统中已存在，\n请更改其他订单数据', ok:true,});
-						 $("#fyFh").css("background", "#EEE");
-						 $("#fyFh").focus();
+						 $("#").css("background", "#EEE");
+						 $("#").focus();
 						 return false;
 					}
 				}
@@ -73,12 +71,10 @@
 		var id = $("#id").val();
 		var dataname = $("#dataname").val();
 		if(id!="" && dataname!=""){
-			// 给房屋坐落地址赋值
-			$("#fyZldz").val($('#fyDh option:selected').text()  + fyCh + "-" + fyFh);
 			// 异步判断该房室是否存在，如果已存在，给用户提示
 			$.ajax({
 				type:"POST",
-				url:"checkFyFhIsExists.action",
+				url:".action",
 				data:{"OrderManaging.id":id,"OrderManaging.dataname":dataname},
 				dataType : "text",
 				success:function(data){
@@ -86,11 +82,11 @@
 					// 如果返回数据不为空，更改“订单信息”
 					if(data=="1"){
 						 art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'该订单在系统中已存在，\n请更改其他订单数据', ok:true,});
-						 $("#fyFh").css("background", "#EEE");
-						 $("#fyFh").focus();
+						 $("#").css("background", "#EEE");
+						 $("#").focus();
 						 return false;
 					}else{
-						$("#submitForm").attr("action", "/xngzf/archives/saveOrUpdateFangyuan.action").submit();
+						$("#submitForm").attr("action", ".action").submit();
 					}
 				}
 			});
@@ -117,7 +113,7 @@
 			return false;
 		}
 		if($("#owner").val()==""){
-			art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'请填写创建人', ok:true,});
+			art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'请填写数据提供方', ok:true,});
 			return false;
 		}
 		return true;
@@ -125,7 +121,7 @@
     </script>
 </head>
 <body>
-    <form id="submitForm" name="submitForm" action="/xngzf/archives/initFangyuan.action" method="post">
+    <form id="submitForm" name="submitForm" action=".action" method="post">
         <input type="hidden" name="fyID" value="14458625716623" id="fyID"/>
         <div id="container">
             <div id="nav_links">
@@ -147,7 +143,7 @@
                     <tr>
                         <td class="ui_text_rt">交易对象</td>
                         <td class="ui_text_lt">
-                            <select name="OrderManaging.name" id="name" class="ui_select01" onchange="getFyDhListByFyXqCode();">
+                            <select name="OrderManaging.name" id="name" class="ui_select01" onchange="">
                                 <option value="">--请选择--</option>
                                 <option value="1" selected="selected">市场</option>
                                 <option value="2">其他用户</option>
@@ -164,7 +160,7 @@
                     <tr>
                         <td class="ui_text_rt">定价</td>
                         <td class="ui_text_lt">
-                            <input type="text" name="OrderManaging.unit" id="unit" value="unit" class="ui_input_txt01" onkeyup="checkFyFh();"/>(元/次)
+                            <input type="text" name="OrderManaging.unit" id="unit" value="unit" class="ui_input_txt01" onkeyup=""/>(元/条)
                         </td>
                     </tr>
                     <tr>
@@ -174,7 +170,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="ui_text_rt">创建人</td>
+                        <td class="ui_text_rt">数据提供方</td>
                         <td class="ui_text_lt">
                             <input type="text" name="OrderManaging.owner" id="owner" value="owner" class="ui_input_txt01"/>
                         </td>

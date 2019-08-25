@@ -30,7 +30,7 @@
 
             /**  导入  **/
             $("#importBtn").fancybox({
-                'href'  : '/xngzf/archives/importFangyuan.action',
+                'href'  : '.action',
                 'width' : 633,
                 'height' : 260,
                 'type' : 'iframe',
@@ -61,24 +61,24 @@
             $("#submitForm").attr("action", "data_list.html?page=" + 1).submit();
         }
 
-        /**  新增  **/
+        /**  导入  **/
         function add(){
-            $("#submitForm").attr("action", "/xngzf/archives/luruFangyuan.action").submit();
+            $("#submitForm").attr("action", ".action").submit();
         }
 
         /**  Excel导出  **/
         function exportExcel(){
             if( confirm('您确定要导出吗？') ){
-                var fyXqCode = $("#fyXq").val();
-                var fyXqName = $('#fyXq option:selected').text();
-    //	 		alert(fyXqCode);
-                if(fyXqCode=="" || fyXqCode==null){
-                    $("#fyXqName").val("");
+                var id = $("#id").val();
+                var name = $('#id option:selected').text();
+    //	 		alert(id);
+                if(id=="" || id==null){
+                    $("#name").val("");
                 }else{
     //	 			alert(fyXqCode);
-                    $("#fyXqName").val(fyXqName);
+                    $("#name").val(name);
                 }
-                $("#submitForm").attr("action", "/xngzf/archives/exportExcelFangyuan.action").submit();
+                $("#submitForm").attr("action", ".action").submit();
             }
         }
 
@@ -87,7 +87,7 @@
             // 非空判断
             if(id == '') return;
             if(confirm("您确定要删除吗？")){
-                $("#submitForm").attr("action", "/xngzf/archives/delFangyuan.action?fyID=" + id).submit();
+                $("#submitForm").attr("action", ".action?id=" + id).submit();
             }
         }
 
@@ -119,7 +119,7 @@
                 $("#allIDCheck").val(allIDCheck);
                 if(confirm("您确定要批量删除这些记录吗？")){
                     // 提交form
-                    $("#submitForm").attr("action", "/xngzf/archives/batchDelFangyuan.action").submit();
+                    $("#submitForm").attr("action", ".action").submit();
                 }
             }
         }
@@ -223,7 +223,7 @@
 								<td>0.05</td>
 								<td>0.10</td>
 								<td>
-									<a href="data_edit.html?id=10001" class="order_edit">编辑</a>
+									<a href="data_edit.html?id=10001" class="data_edit">编辑</a>
 									<a href="javascript:del('10001');">删除</a>
 								</td>
 							</tr>
@@ -239,7 +239,7 @@
 								<td>0.05</td>
 								<td>0.10</td>
 								<td>
-									<a href="data_edit.html?id=10001" class="order_edit">编辑</a>
+									<a href="data_edit.html?id=10001" class="data_edit">编辑</a>
 									<a href="javascript:del('10001');">删除</a>
 								</td>
 							</tr>

@@ -39,26 +39,24 @@
 
 	/** 检测模型是否存在  **/
 	function checkModel(){
-		// 分别获取顾客编号、顾客名称
-		var fyID = $('#fyID').val();
+		// 分别获取模型编号、模型名称
+		var ID = $('#ID').val();
 		var id = $("#id").val();
 		var name = $("#name").val();
 		if(id!="" && name!=""){
-			// 给房屋坐落地址赋值
-			$("#fyZldz").val($('#Name option:selected').text() + fyCh + "-" + fyFh);
-			// 异步判断该房室是否存在，如果已存在，给用户提示
+			// 异步判断该模型是否存在，如果已存在，给用户提示
 			$.ajax({
 				type:"POST",
-				url:"checkFyFhIsExists.action",
+				url:".action",
 				data:{"modelManaging.id":id,"modelManaging.modelname":name},
 				dataType : "text",
 				success:function(data){
 // 					alert(data);
-					// 如果返回数据不为空，更改“房源信息”
+					// 如果返回数据不为空，更改“模型信息”
 					if(data=="1"){
 						 art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'该模型在系统中已存在，\n请更改其他模型数据', ok:true,});
-						 $("#fyFh").css("background", "#EEE");
-						 $("#fyFh").focus();
+						 $("#").css("background", "#EEE");
+						 $("#").focus();
 						 return false;
 					}
 				}
@@ -68,17 +66,15 @@
 
 	/** 检测模型是否存在并提交form  **/
 	function checkModelSubmit(){
-		// 分别获取小区编号、栋号、层号、房号
-		var fyID = $('#fyID').val();
+		// 分别获取模型编号、模型名称
+		var ID = $('#ID').val();
 		var id= $("#").val();
 		var name = $("#name").val();
 		if(id!="" && name!=""){
-			// 给房屋坐落地址赋值
-			$("#fyZldz").val($('#fyDh option:selected').text()  + fyCh + "-" + fyFh);
 			// 异步判断该房室是否存在，如果已存在，给用户已提示哦
 			$.ajax({
 				type:"POST",
-				url:"checkFyFhIsExists.action",
+				url:".action",
 				data:{"modelManaging.id":id,"modelManaging.modelname":name},
 				dataType : "text",
 				success:function(data){
@@ -86,11 +82,11 @@
 					// 如果返回数据不为空，更改“房源信息”
 					if(data=="1"){
 						 art.dialog({icon:'error', title:'友情提示', drag:false, resize:false, content:'该顾客在系统中已存在，\n请更改其他顾客数据', ok:true,});
-						 $("#fyFh").css("background", "#EEE");
-						 $("#fyFh").focus();
+						 $("#").css("background", "#EEE");
+						 $("#").focus();
 						 return false;
 					}else{
-						$("#submitForm").attr("action", "/xngzf/archives/saveOrUpdateFangyuan.action").submit();
+						$("#submitForm").attr("action", ".action").submit();
 					}
 				}
 			});
@@ -113,7 +109,7 @@
     </script>
 </head>
 <body>
-    <form id="submitForm" name="submitForm" action="/xngzf/archives/initFangyuan.action" method="post">
+    <form id="submitForm" name="submitForm" action=".action" method="post">
         <input type="hidden" name="fyID" value="14458625716623" id="fyID"/>
         <div id="container">
             <div id="nav_links">

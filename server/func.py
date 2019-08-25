@@ -47,7 +47,7 @@ def _check_cross_size(guid, guest_table, host_table):
         size_result.size = size
         db.session.add(size_result)
         db_commit()
-    print('GUEST TABLE ID %d HOST TABLE ID %d intersection size %d' %
+    print('GUEST TABLE ID %d HOST TABLE ID %d 交集大小 %d' %
           (guest_table.id, host_table.id, size_result.size))
     if size_result.size == 0:
         return {Params.RESULT: RetVal.SIZE_0.value}
@@ -62,8 +62,8 @@ def _check_balance(guid, guest_table, host_table, mode):
         return {Params.RESULT: RetVal.NO_RECORD.value}
     price = host_table.price0 if mode == TransType.TRAIN.value else host_table.price1
     cost = price * size_result.size
-    print('GUEST ID %d balance %.2f'% (guid, user.balance))
-    print('GUEST TABLE ID %d HOST TABLE ID %d training cost %.2f' %
+    print('GUEST ID %d 余额 %.2f'% (guid, user.balance))
+    print('GUEST TABLE ID %d HOST TABLE ID %d 训练成本 %.2f' %
           (guest_table.id, host_table.id, cost))
     if cost > user.balance:
         return {Params.RESULT: RetVal.NO_MONEY.value}
@@ -82,7 +82,7 @@ def _check_cv(guid, guest_table, host_table):
         resp_json = db_commit()
         if resp_json[Params.RESULT] != RetVal.OK.value:
             return resp_json
-    print('GUEST TABLE ID %d local train score: %.4f' % (guest_table.id, guest_table.score))
+    print('GUEST TABLE ID %d 本地训练分数: %.4f' % (guest_table.id, guest_table.score))
 
     # hetero lr cv
     gtid = guest_table.id
@@ -102,7 +102,7 @@ def _check_cv(guid, guest_table, host_table):
         if resp_json[Params.RESULT] != RetVal.OK.value:
             return resp_json
         db_commit()
-    print('GUEST TABLE ID %d HOST TABLE ID %d online train score %.4f, %.4f %s than local model' %
+    print('GUEST TABLE ID %d HOST TABLE ID %d 在线训练分数 %.4f, %.4f %s than 本地模型' %
           (guest_table.id, host_table.id, cv_result.score, abs(cv_result.score_gap),
           'higher' if cv_result.score_gap >= 0 else 'lower'))
     if cv_result.score_gap <= 0:
@@ -149,7 +149,7 @@ def _train(guid, guest_table, host_table, mode, cost, memo=''):
         model_path = model.get_fate_path()
         train(guid, guest_table.get_fate_path(), guest_table.y_col_id, \
               huid, host_table.get_fate_path(), host_table.y_col_id, model_path)
-        print('MODEL %s VER %d ID %d memo \"%s\"' %
+        print('模型 %s 版本 %d ID %d 备注 \"%s\"' %
               (model.name.name, model.ver, model.id, model.memo))
         user.balance -= cost
         host = User.query.get(host_table.name.uid)
@@ -161,9 +161,9 @@ def _train(guid, guest_table, host_table, mode, cost, memo=''):
         trans.type = mode
         db.session.add(trans)
         resp_json = db_commit()
-        print('GUEST ID %d paid %.2f' % (guid, cost))
-        print('HOST ID %d received %.2f' % (host.id, cost))
-        print('TRANSACTION ID %d occurred' % trans.id)
+        print('GUEST ID %d 支出 %.2f' % (guid, cost))
+        print('HOST ID %d 收入 %.2f' % (host.id, cost))
+        print('交易ID %d 发生' % trans.id)
 
     return {Params.RESULT: RetVal.OK}
 
@@ -195,12 +195,12 @@ def func_auto_train(guid, guest_table, memo):
                 if resp_json[Params.RESULT] != RetVal.OK.value:
                     continue
                 resp_json = _check_balance(guid, guest_table, host_table, mode)
-                print('_check_balance ',resp_json)
+                # print('_check_balance ',resp_json)
                 if resp_json[Params.RESULT] != RetVal.OK.value:
                     continue
                 cost = resp_json[Params.COST]
                 resp_json = _check_cv(guid, guest_table, host_table)
-                print('_check_cv ',resp_json)
+                # print('_check_cv ',resp_json)
                 if resp_json[Params.RESULT] != RetVal.OK.value:
                     continue
                 score_gap = resp_json[Params.IMPV]
@@ -230,7 +230,7 @@ def func_get_target_tables(guid, guest_table, mode):
         gpid = i * 2 + 2
         hpid = i * 2 + 1
         size = get_cross_size(gpid, guid, guest_table_path, hpid, huid, host_table_path)
-        print('host_table %s: %d' % (host_table_path, size))
+        # print('host_table %s: %d' % (host_table_path, size))
         result = SizeResult()
         result.gid = gtid
         result.hid = htid
@@ -396,7 +396,7 @@ def func_show_data():
         table_scores.append((htid, total_size, total_score_gap, total_score_gap / total_size if total_size > 0 else 0))
     table_scores.sort(key=lambda x:x[3], reverse=True)
     for score in table_scores:
-        print('TABLE ID %d 参与联邦学习数据%d条， 评估分数提升总计%.4f， 平均%.8f' % (score[0], score[1], score[2], score[3]))
+        print('TABLE ID %d 参与联邦学习数据%d条， 模型改善分数总计%.4f， 平均%.8f' % (score[0], score[1], score[2], score[3]))
 
 
 def func_add_table_name(uid, table_name):

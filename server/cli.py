@@ -66,11 +66,11 @@ def show_users():
 def show_models():
     users = User.query.order_by(User.id).all()
     for user in users:
-        print('USER ID: %d,\tname: %s' % (user.id, user.name))
+        print('用户ID: %d,\tn名称: %s' % (user.id, user.name))
         for model_name in user.model_names:
-            print('\tMODEL ID: %d,\tname: %s' % (model_name.id, model_name.name))
+            print('\t模型ID: %d,\t名称: %s' % (model_name.id, model_name.name))
             for model in model_name.models:
-                print('\t\tMODEL ID: %d,\tver: %d,\tcreate time: %s,\tmemo: %s' % (model.id, model.ver, model.time, model.memo))
+                print('\t\t模型ID: %d,\t版本: %d,\t创建时间: %s,\t备注: %s' % (model.id, model.ver, model.time, model.memo))
         print('\n')
 
 # topup uid amount
@@ -80,7 +80,7 @@ def topup(uid, amount):
     amount = float(amount)
     func_topup(uid, amount)
     user = User.query.get(uid)
-    print('USER %d balance %.2f' % (uid, user.balance))
+    print('用户ID： %d 余额：%.2f' % (uid, user.balance))
 
 # train gtid htid memo
 @manager.command
